@@ -1,43 +1,44 @@
 {
-    "name": "json2ts",
-    "displayName": "json2ts",
-    "description": "Convert a JSON from clipboard to TypeScript interface",
-    "version": "0.0.1",
-    "publisher": "GregorBiswanger",
-    "engines": {
-        "vscode": "^0.10.6"
-    },
-    "categories": [
-        "Other"
+  "name": "json2ts",
+  "displayName": "json2ts",
+  "description": "Convert a JSON from clipboard to TypeScript interface",
+  "version": "0.0.1",
+  "publisher": "GregorBiswanger",
+  "engines": {
+    "vscode": "^0.10.6"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:convert.json2ts"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "convert.json2ts",
+        "title": "Convert json clipboard to TypeScript interface"
+      }
     ],
-    "activationEvents": [
-        "onCommand:convert.json2ts"
-    ],
-    "main": "./out/src/extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "convert.json2ts",
-                "title": "Convert json clipboard to TypeScript interface"
-            }
-        ],
-        "keybindings": [
-            {
-                "command": "convert.json2ts",
-                "key": "ctrl+alt+V"
-            }
-        ]
-    },
-    "scripts": {
-        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    },
-    "devDependencies": {
-        "typescript": "^1.7.5",
-        "vscode": "^0.11.0"
-    },
-    "dependencies": {
-        "copy-paste": "^1.1.4"
-    }
+    "keybindings": [
+      {
+        "command": "convert.json2ts",
+        "key": "ctrl+alt+V"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "typescript": "^1.7.5",
+    "vscode": "^0.11.0"
+  },
+  "dependencies": {
+    "copy-paste": "^1.1.4",
+    "underscore": "^1.8.3"
+  }
 }
