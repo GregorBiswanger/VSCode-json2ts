@@ -9,12 +9,9 @@ export class Json2Ts {
             let value = jsonContent[key];
 
             if (_.isArray(value)) {
-                let mm = this.detectMultiArrayTypes(value);
                 let arrayTypes: any = this.detectMultiArrayTypes(value);
 
-                if (arrayTypes.length === 1) {
-                    jsonContent[key] = arrayTypes[0];
-                } else {
+                if (this.isMultiArray(arrayTypes)) {
                     let multiArrayBrackets = this.getMultiArrayBrackets(value);
 
                     if (this.isAllEqual(arrayTypes)) {
@@ -22,12 +19,13 @@ export class Json2Ts {
                     } else {
                         jsonContent[key] = "any" + multiArrayBrackets + ";";
                     }
+                } else {
+                    jsonContent[key] = arrayTypes[0];
                 }
 
             } else if (_.isDate(value)) {
                 jsonContent[key] = "Date;";
-            }
-            else if (_.isString(value)) {
+            } else if (_.isString(value)) {
                 jsonContent[key] = "string;";
             } else if (_.isBoolean(value)) {
                 jsonContent[key] = "boolean;";
@@ -76,11 +74,15 @@ export class Json2Ts {
         return valueType;
     }
 
+    isMultiArray(arrayTypes: string[]) {
+        return arrayTypes.length > 1;
+    }
+
     isAllEqual(array: string[]) {
         return _.all(array.slice(1), _.partial(_.isEqual, array[0]));
     }
 
-    getMultiArrayBrackets(content: string) {
+    getMultiArrayBrackets(content: string): string {
         let jsonString = JSON.stringify(content);
         let brackets = "";
 
