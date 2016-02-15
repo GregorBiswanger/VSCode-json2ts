@@ -183,4 +183,14 @@ suite("json2ts Tests", () => {
 
         assert.equal(result, ts);
     });
+
+    test("Convert Array JSON-Value to single RootObject", () => {
+        let json = `[{\n\t"userId": 1,"id": 1,"title": "sunt aut facere", "body": "quia et suscipit"\n},\n{\n\t"userId": 1,"id": 2,"title": "qui est esse","body": "est rerum tempore"\n}]`;
+        let ts = `export interface RootObject {\n\tuserId: number;\n\tid: number;\n\ttitle: string;\n\tbody: string;\n}`;
+
+        let json2ts = new Json2Ts();
+        let result = json2ts.convert(json);
+
+        assert.equal(result, ts);
+    });
 });

@@ -3,6 +3,11 @@ import * as _ from "underscore";
 export class Json2Ts {
     convert(content: string): string {
         let jsonContent = JSON.parse(content);
+
+        if (_.isArray(jsonContent)) {
+            return this.convertObjectToTsInterfaces(jsonContent[0]);
+        }
+
         return this.convertObjectToTsInterfaces(jsonContent);
     }
 
