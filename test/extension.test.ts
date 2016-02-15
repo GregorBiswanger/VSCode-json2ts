@@ -5,8 +5,8 @@ let Json2Ts = extension.Json2Ts;
 
 suite("json2ts Tests", () => {
     test("Convert JSON-Value to String-Type", () => {
-        let json = `{\n\t"Name": "Mustermann"\n}`;
-        let ts = `{\n\tName: string;\n}`;
+        let json = `{\n\t"name": "Mustermann"\n}`;
+        let ts = `export interface RootObject {\n\tname: string;\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -15,8 +15,8 @@ suite("json2ts Tests", () => {
     });
 
     test("Convert JSON-Value to Number-Type", () => {
-        let json = `{\n\t"Alter": 42\n}`;
-        let ts = `{\n\tAlter: number;\n}`;
+        let json = `{\n\t"alter": 42\n}`;
+        let ts = `export interface RootObject {\n\talter: number;\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -26,7 +26,7 @@ suite("json2ts Tests", () => {
 
     test("Convert JSON-Value to Boolean-Type", () => {
         let json = `{\n\t"maennlich": true\n}`;
-        let ts = `{\n\tmaennlich: boolean;\n}`;
+        let ts = `export interface RootObject {\n\tmaennlich: boolean;\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -35,8 +35,8 @@ suite("json2ts Tests", () => {
     });
 
     test("Convert JSON-Value to Any-Type", () => {
-        let json = `{\n\t"Partner": null\n}`;
-        let ts = `{\n\tPartner?: any;\n}`;
+        let json = `{\n\t"partner": null\n}`;
+        let ts = `export interface RootObject {\n\tpartner?: any;\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -45,8 +45,8 @@ suite("json2ts Tests", () => {
     });
 
     test("Convert JSON-Value to String[]-Type", () => {
-        let json = `{\n\t"Hobbys": ["Reiten","Golfen","Lesen"]\n}`;
-        let ts = `{\n\tHobbys: string[];\n}`;
+        let json = `{\n\t"hobbys": ["Reiten","Golfen","Lesen"]\n}`;
+        let ts = `export interface RootObject {\n\thobbys: string[];\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -56,7 +56,7 @@ suite("json2ts Tests", () => {
 
     test("Convert JSON-Value to Number[]-Type", () => {
         let json = `{\n\t"zahlen": [1, 3, 5]\n}`;
-        let ts = `{\n\tzahlen: number[];\n}`;
+        let ts = `export interface RootObject {\n\tzahlen: number[];\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -66,7 +66,7 @@ suite("json2ts Tests", () => {
 
     test("Convert JSON-Value to Boolean[]-Type", () => {
         let json = `{\n\t"booleans": [true, false, true]\n}`;
-        let ts = `{\n\tbooleans: boolean[];\n}`;
+        let ts = `export interface RootObject {\n\tbooleans: boolean[];\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -75,8 +75,8 @@ suite("json2ts Tests", () => {
     });
 
     test("Convert JSON-Value to Any[]-Type", () => {
-        let json = `{\n\t"Kinder": []\n}`;
-        let ts = `{\n\tKinder: any[];\n}`;
+        let json = `{\n\t"kinder": []\n}`;
+        let ts = `export interface RootObject {\n\tkinder: any[];\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -86,7 +86,7 @@ suite("json2ts Tests", () => {
 
     test("Convert JSON-Value to String[][]-Type", () => {
         let json = `{\n\t"multiarrays": [["Reiten", "wohoo"], ["wohoo", "ssss"]]\n}`;
-        let ts = `{\n\tmultiarrays: string[][];\n}`;
+        let ts = `export interface RootObject {\n\tmultiarrays: string[][];\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -96,7 +96,7 @@ suite("json2ts Tests", () => {
 
     test("Convert JSON-Value to Number[][]-Type", () => {
         let json = `{\n\t"multiarrays": [[4, 3], [2, 1]]\n}`;
-        let ts = `{\n\tmultiarrays: number[][];\n}`;
+        let ts = `export interface RootObject {\n\tmultiarrays: number[][];\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -106,7 +106,7 @@ suite("json2ts Tests", () => {
 
     test("Convert JSON-Value to Boolean[][]-Type", () => {
         let json = `{\n\t"multiarrays": [[true, false], [false, false]]\n}`;
-        let ts = `{\n\tmultiarrays: boolean[][];\n}`;
+        let ts = `export interface RootObject {\n\tmultiarrays: boolean[][];\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -116,7 +116,7 @@ suite("json2ts Tests", () => {
 
     test("Convert JSON-Value to Any[][]-Type", () => {
         let json = `{\n\t"multiarrays": [[true, 5], ["Wohoo", false]]\n}`;
-        let ts = `{\n\tmultiarrays: any[][];\n}`;
+        let ts = `export interface RootObject {\n\tmultiarrays: any[][];\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);
@@ -126,7 +126,57 @@ suite("json2ts Tests", () => {
 
     test("Convert JSON-Value to String[][][]-Type", () => {
         let json = `{\n\t"multiarrays": [[["Reiten", "wohoo"], ["wohoo", "ssss"]], [["Reiten", "wohoo"], ["wohoo", "ssss"]]]\n}`;
-        let ts = `{\n\tmultiarrays: string[][][];\n}`;
+        let ts = `export interface RootObject {\n\tmultiarrays: string[][][];\n}`;
+
+        let json2ts = new Json2Ts();
+        let result = json2ts.convert(json);
+
+        assert.equal(result, ts);
+    });
+
+    test("Convert JSON-Value to Custom-Type", () => {
+        let json = `{\n\t"custom": {"name": "Foo", "age": 30}\n}`;
+        let ts = `export interface Custom {\n\tname: string;\n\tage: number;\n}\n\nexport interface RootObject {\n\tcustom: Custom;\n}`;
+
+        let json2ts = new Json2Ts();
+        let result = json2ts.convert(json);
+
+        assert.equal(result, ts);
+    });
+
+    test("Convert JSON-Value to Custom-Project-Type", () => {
+        let json = `{\n\t"custom": {"name": "Foo", "age": 30, "project": {"name": "Bar", "finish": true}}\n}`;
+        let ts = `export interface Project {\n\tname: string;\n\tfinish: boolean;\n}\n\nexport interface Custom {\n\tname: string;\n\tage: number;\n\tproject: Project;\n}\n\nexport interface RootObject {\n\tcustom: Custom;\n}`;
+
+        let json2ts = new Json2Ts();
+        let result = json2ts.convert(json);
+
+        assert.equal(result, ts);
+    });
+
+    test("Convert JSON-Value to String-Type (Key is lower)", () => {
+        let json = `{\n\t"Name": "Mustermann"\n}`;
+        let ts = `export interface RootObject {\n\tname: string;\n}`;
+
+        let json2ts = new Json2Ts();
+        let result = json2ts.convert(json);
+
+        assert.equal(result, ts);
+    });
+
+    test("Convert JSON-Value to Custom-Type (Type is upper)", () => {
+        let json = `{\n\t"custom": {"name": "Foo", "age": 30}\n}`;
+        let ts = `export interface Custom {\n\tname: string;\n\tage: number;\n}\n\nexport interface RootObject {\n\tcustom: Custom;\n}`;
+
+        let json2ts = new Json2Ts();
+        let result = json2ts.convert(json);
+
+        assert.equal(result, ts);
+    });
+
+    test("Convert extensive JSON-Value to TypeScript Interfaces", () => {
+        let json = `{\n\t"Herausgeber": "Xema","Nummer": "1234-5678-9012-3456","Deckung": 2e+6,"Waehrung": "EURO","Inhaber": {\n\t"Name": "Mustermann","Vorname": "Max","maennlich": true,"Hobbys": [ "Reiten", "Golfen", "Lesen" ], "Alter": 42,"Kinder": [],"Partner": null\n\t}\n}`;
+        let ts = `export interface Inhaber {\n\tname: string;\n\tvorname: string;\n\tmaennlich: boolean;\n\thobbys: string[];\n\talter: number;\n\tkinder: any[];\n\tpartner?: any;\n}\n\nexport interface RootObject {\n\therausgeber: string;\n\tnummer: string;\n\tdeckung: number;\n\twaehrung: string;\n\tinhaber: Inhaber;\n}`;
 
         let json2ts = new Json2Ts();
         let result = json2ts.convert(json);

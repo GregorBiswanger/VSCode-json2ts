@@ -3,12 +3,21 @@ import * as _ from "underscore";
 export class Json2Ts {
     convert(content: string): string {
         let jsonContent = JSON.parse(content);
+        return this.convertObjectToTsInterfaces(jsonContent);
+    }
+
+    private convertObjectToTsInterfaces(jsonContent: any, objectName: string = "RootObject"): string {
         let optionalKeys: string[] = [];
+        let objectResult: string[] = [];
 
         for (let key in jsonContent) {
             let value = jsonContent[key];
 
-            if (_.isArray(value)) {
+            if (_.isObject(value) && !_.isArray(value)) {
+                let childObjectName = this.toUpperFirstLetter(key);
+                objectResult.push(this.convertObjectToTsInterfaces(value, childObjectName));
+                jsonContent[key] = childObjectName + ";";
+            } else if (_.isArray(value)) {
                 let arrayTypes: any = this.detectMultiArrayTypes(value);
 
                 if (this.isMultiArray(arrayTypes)) {
@@ -37,19 +46,13 @@ export class Json2Ts {
             }
         }
 
-        let result = JSON.stringify(jsonContent, null, "\t")
-            .replace(new RegExp("\"", "g"), "")
-            .replace(new RegExp(",", "g"), "");
+        let result = this.formatCharsToTypeScript(jsonContent, objectName, optionalKeys);
+        objectResult.push(result);
 
-        for (let index = 0, length = optionalKeys.length; index < length; index++) {
-            let element = optionalKeys[index];
-            result = result.replace(element + ":", element + "?:");
-        }
-
-        return result;
+        return objectResult.join("\n\n");
     }
 
-    detectMultiArrayTypes(value: any, valueType: string[] = []): string[] {
+    private detectMultiArrayTypes(value: any, valueType: string[] = []): string[] {
         if (_.isArray(value)) {
             if (value.length === 0) {
                 valueType.push("any[];");
@@ -74,15 +77,15 @@ export class Json2Ts {
         return valueType;
     }
 
-    isMultiArray(arrayTypes: string[]) {
+    private isMultiArray(arrayTypes: string[]) {
         return arrayTypes.length > 1;
     }
 
-    isAllEqual(array: string[]) {
+    private isAllEqual(array: string[]) {
         return _.all(array.slice(1), _.partial(_.isEqual, array[0]));
     }
 
-    getMultiArrayBrackets(content: string): string {
+    private getMultiArrayBrackets(content: string): string {
         let jsonString = JSON.stringify(content);
         let brackets = "";
 
@@ -98,6 +101,32 @@ export class Json2Ts {
 
         return brackets;
     }
+
+    private formatCharsToTypeScript(jsonContent: any, objectName: string, optionalKeys: string[]): string {
+        let result = JSON.stringify(jsonContent, null, "\t")
+            .replace(new RegExp("\"", "g"), "")
+            .replace(new RegExp(",", "g"), "");
+
+        let allKeys = _.allKeys(jsonContent);
+        for (let index = 0, length = allKeys.length; index < length; index++) {
+            let key = allKeys[index];
+            if (_.contains(optionalKeys, key)) {
+                result = result.replace(new RegExp(key + ":", "g"), this.toLowerFirstLetter(key) + "?:");
+            } else {
+                result = result.replace(new RegExp(key + ":", "g"), this.toLowerFirstLetter(key) + ":");
+            }
+        }
+
+        return "export interface " + objectName + " " + result;
+    }
+
+    private toUpperFirstLetter(text: string) {
+        return text.charAt(0).toUpperCase() + text.slice(1);
+    };
+
+    private toLowerFirstLetter(text: string) {
+        return text.charAt(0).toLowerCase() + text.slice(1);
+    };
 }
 
 export function isJson(stringContent) {
