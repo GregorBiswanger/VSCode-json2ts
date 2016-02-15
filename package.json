@@ -1,7 +1,7 @@
 {
     "name": "json2ts",
     "displayName": "json2ts",
-    "description": "Convert a JSON from clipboard to TypeScript interfaces. (Ctrl+At+V)",
+    "description": "Convert a JSON from clipboard to TypeScript interfaces. (Ctrl+Alt+V)",
     "version": "0.0.2",
     "publisher": "GregorBiswanger",
     "author": {
