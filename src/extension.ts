@@ -6,12 +6,8 @@ import * as extension from "./Json2Ts";
 let Json2Ts = extension.Json2Ts;
 
 export function activate(context: vscode.ExtensionContext) {
-
-    console.log("Congratulations, your extension 'json2ts' is now active!");
-
     let disposable = vscode.commands.registerCommand("convert.json2ts", () => {
         copyPaste.paste((error, content) => {
-            console.log("Original: " + content);
 
             if (extension.isJson(content)) {
                 let json2ts = new Json2Ts();
@@ -22,11 +18,9 @@ export function activate(context: vscode.ExtensionContext) {
                     let lastCharIndex = vscode.window.activeTextEditor.document.lineAt(startLine).text.length;
                     let position = new vscode.Position(startLine, lastCharIndex);
                     editBuilder.insert(position, result);
-
-                    console.log("Converted: " + result);
                 });
             } else {
-                vscode.window.showErrorMessage("Clipboard have no JSON content.");
+                vscode.window.showErrorMessage("Clipboard has no valid JSON content.");
             }
         });
     });
