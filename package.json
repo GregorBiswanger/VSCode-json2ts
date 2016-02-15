@@ -1,9 +1,9 @@
 {
     "name": "json2ts",
     "displayName": "json2ts",
-    "description": "This json2ts is a VSCode Extension and converts a JSON from clipboard to TypeScript interfaces.",
-    "version": "0.0.1",
-    "publisher": "Gregor Biswanger",
+    "description": "Convert a JSON from clipboard to TypeScript interfaces. (Ctrl+At+V)",
+    "version": "0.0.2",
+    "publisher": "GregorBiswanger",
     "author": {
         "name": "Gregor Biswanger - http://about.me/gregor.biswanger"
     },
