@@ -33,6 +33,10 @@ export class Json2Ts {
                     } else {
                         jsonContent[key] = "any" + multiArrayBrackets + ";";
                     }
+                } else if (value.length > 0 && _.isObject(value[0])) {
+                    let childObjectName = this.toUpperFirstLetter(key);
+                    objectResult.push(this.convertObjectToTsInterfaces(value[0], childObjectName));
+                    jsonContent[key] = childObjectName + "[];";
                 } else {
                     jsonContent[key] = arrayTypes[0];
                 }

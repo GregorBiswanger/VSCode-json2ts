@@ -193,4 +193,14 @@ suite("json2ts Tests", () => {
 
         assert.equal(result, ts);
     });
+
+    test("Convert JSON-Value to Custom Array-Type", () => {
+        let json = `{\n\t"tags": [{"tag": "wpf"}, {"tag": "javascript"}]\n}`;
+        let ts = `export interface Tags {\n\ttag: string;\n}\n\nexport interface RootObject {\n\ttags: Tags[];\n}`;
+
+        let json2ts = new Json2Ts();
+        let result = json2ts.convert(json);
+
+        assert.equal(result, ts);
+    });
 });
