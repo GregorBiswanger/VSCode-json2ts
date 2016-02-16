@@ -36,7 +36,7 @@ export class Json2Ts {
                 } else if (value.length > 0 && _.isObject(value[0])) {
                     let childObjectName = this.toUpperFirstLetter(key);
                     objectResult.push(this.convertObjectToTsInterfaces(value[0], childObjectName));
-                    jsonContent[key] = childObjectName + "[];";
+                    jsonContent[key] = this.removeMajority(childObjectName) + "[];";
                 } else {
                     jsonContent[key] = arrayTypes[0];
                 }
@@ -126,7 +126,17 @@ export class Json2Ts {
             }
         }
 
+        objectName = this.removeMajority(objectName);
+
         return "export interface " + objectName + " " + result;
+    }
+
+    private removeMajority(objectName: string): string {
+        if (_.last(objectName).toUpperCase() === "S") {
+            return objectName.substring(0, objectName.length - 1);
+        }
+
+        return objectName;
     }
 
     private toUpperFirstLetter(text: string) {
