@@ -2,7 +2,7 @@
 
 import * as vscode from "vscode";
 import * as copyPaste from "copy-paste";
-import * as request from "request";
+let request = require("request");
 import * as extension from "./Json2Ts";
 let Json2Ts = extension.Json2Ts;
 
