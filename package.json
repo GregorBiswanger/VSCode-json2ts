@@ -1,57 +1,67 @@
 {
-    "name": "json2ts",
-    "displayName": "json2ts",
-    "description": "Convert a JSON from clipboard to TypeScript interfaces. (Ctrl+Alt+V)",
-    "version": "0.0.4",
-    "publisher": "GregorBiswanger",
-    "author": {
-        "name": "Gregor Biswanger - http://about.me/gregor.biswanger"
-    },
-    "engines": {
-        "vscode": "^0.10.6"
-    },
-    "icon": "images/json2tsIcon.png",
-    "categories": [
-        "Languages",
-        "Snippets"
+  "name": "json2ts",
+  "displayName": "json2ts",
+  "description": "Convert a JSON from clipboard to TypeScript interfaces. (Ctrl+Alt+V)",
+  "version": "0.0.5",
+  "publisher": "GregorBiswanger",
+  "author": {
+    "name": "Gregor Biswanger - http://about.me/gregor.biswanger"
+  },
+  "engines": {
+    "vscode": "^0.10.6"
+  },
+  "icon": "images/json2tsIcon.png",
+  "categories": [
+    "Languages",
+    "Snippets"
+  ],
+  "galleryBanner": {
+    "color": "#007ACC",
+    "theme": "light"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GregorBiswanger/VSCode-json2ts.git"
+  },
+  "activationEvents": [
+    "onCommand:convert.json2ts",
+    "onCommand:rest.json2ts"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "convert.json2ts",
+        "title": "Convert json clipboard to TypeScript interfaces"
+      },
+      {
+        "command": "rest.json2ts",
+        "title": "Convert a REST-URL with json result to TypeScript interfaces"
+      }
     ],
-    "galleryBanner": {
-        "color": "#007ACC",
-        "theme": "light"
-    },
-    "repository": {
-        "type": "git",
-         "url": "https://github.com/GregorBiswanger/VSCode-json2ts.git"
-    },
-    "activationEvents": [
-        "onCommand:convert.json2ts"
-    ],
-    "main": "./out/src/extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "convert.json2ts",
-                "title": "Convert json clipboard to TypeScript interface"
-            }
-        ],
-        "keybindings": [
-            {
-                "command": "convert.json2ts",
-                "key": "ctrl+alt+V"
-            }
-        ]
-    },
-    "scripts": {
-        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    },
-    "devDependencies": {
-        "typescript": "^1.7.5",
-        "vscode": "^0.11.0"
-    },
-    "dependencies": {
-        "copy-paste": "^1.1.4",
-        "underscore": "^1.8.3"
-    }
+    "keybindings": [
+      {
+        "command": "convert.json2ts",
+        "key": "ctrl+alt+V"
+      },
+      {
+        "command": "rest.json2ts",
+        "key": "ctrl+alt+X"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "typescript": "^1.7.5",
+    "vscode": "^0.11.0"
+  },
+  "dependencies": {
+    "copy-paste": "^1.1.4",
+    "request": "^2.69.0",
+    "underscore": "^1.8.3"
+  }
 }
