@@ -21,7 +21,7 @@ export class Json2Ts {
             if (_.isObject(value) && !_.isArray(value)) {
                 let childObjectName = this.toUpperFirstLetter(key);
                 objectResult.push(this.convertObjectToTsInterfaces(value, childObjectName));
-                jsonContent[key] = childObjectName + ";";
+                jsonContent[key] = this.removeMajority(childObjectName) + ";";
             } else if (_.isArray(value)) {
                 let arrayTypes: any = this.detectMultiArrayTypes(value);
 
@@ -132,7 +132,9 @@ export class Json2Ts {
     }
 
     private removeMajority(objectName: string): string {
-        if (_.last(objectName).toUpperCase() === "S") {
+        if (_.last(objectName, 3).join("").toUpperCase() === "IES") {
+            return objectName.substring(0, objectName.length - 3) + "y";
+        } else if (_.last(objectName).toUpperCase() === "S") {
             return objectName.substring(0, objectName.length - 1);
         }
 
