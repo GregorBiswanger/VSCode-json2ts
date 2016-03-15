@@ -24,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
             } else {
                 vscode.window.showInputBox({ prompt: "Insert your REST-Service URL." })
                     .then((userInput) => {
-                        if (content && content.indexOf("http") > -1) {
+                        if (userInput && userInput.indexOf("http") > -1) {
                             callRestService(userInput);
                         } else {
                             vscode.window.showErrorMessage("No valid REST-Service URL.");
