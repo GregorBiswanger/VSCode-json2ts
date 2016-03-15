@@ -9,10 +9,18 @@ let Json2Ts = extension.Json2Ts;
 export function activate(context: vscode.ExtensionContext) {
     let clipboardJson2ts = vscode.commands.registerCommand("convert.json2ts", () => {
         copyPaste.paste((error, content) => {
-            if (extension.isJson(content)) {
-                convert(content);
+            if (error == null) {
+                if (extension.isJson(content)) {
+                    convert(content);
+                } else {
+                    vscode.window.showErrorMessage("Clipboard has no valid JSON content.");
+                }
             } else {
-                vscode.window.showErrorMessage("Clipboard has no valid JSON content.");
+                if (error["path"] == "xclip") {
+                    vscode.window.showErrorMessage("Clipboard can not be read. Have you installed xclip?");
+                } else {
+                    vscode.window.showErrorMessage("Clipboard can not be read.");
+                }
             }
         });
     });
