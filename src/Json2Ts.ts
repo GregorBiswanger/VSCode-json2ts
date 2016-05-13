@@ -120,9 +120,9 @@ export class Json2Ts {
         for (let index = 0, length = allKeys.length; index < length; index++) {
             let key = allKeys[index];
             if (_.contains(optionalKeys, key)) {
-                result = result.replace(new RegExp(key + ":", "g"), this.toLowerFirstLetter(key) + "?:");
+                result = result.replace(new RegExp(key + ":", "g"), key + "?:");
             } else {
-                result = result.replace(new RegExp(key + ":", "g"), this.toLowerFirstLetter(key) + ":");
+                result = result.replace(new RegExp(key + ":", "g"), key + ":");
             }
         }
 
@@ -145,9 +145,7 @@ export class Json2Ts {
         return text.charAt(0).toUpperCase() + text.slice(1);
     };
 
-    private toLowerFirstLetter(text: string) {
-        return text.charAt(0).toLowerCase() + text.slice(1);
-    };
+    
 }
 
 export function isJson(stringContent) {
