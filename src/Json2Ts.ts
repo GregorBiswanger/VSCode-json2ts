@@ -146,7 +146,8 @@ export class Json2Ts {
     };
 
     private toLowerFirstLetter(text: string) {
-        return text.charAt(0).toLowerCase() + text.slice(1);
+        //return text.charAt(0).toLowerCase() + text.slice(1);
+        return text;
     };
 }
 
