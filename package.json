@@ -48,7 +48,19 @@
         "command": "rest.json2ts",
         "key": "ctrl+alt+X"
       }
-    ]
+    ],
+    "configuration": {
+      "type":"object",
+      "title": "json2ts configuration",
+      "properties": {
+        "json2ts.convertPropertyNamesToLowerCamelCase": {
+          
+          "type": "boolean",
+          "default": true,
+          "description": "Convert the property names to lower camel case (e.g. myProperty instead of MyProperty) regardless of the source"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
