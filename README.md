@@ -12,6 +12,9 @@ Another way is, to copy a REST-Service URL to clipboard and insert TypeScript in
 
 ![json2ts Screenshot](https://github.com/GregorBiswanger/VSCode-json2ts/blob/master/images/json2ts.REST-URL-Support.gif?raw=true)
 
+###Configuration
+The extension converts the property names to lower case by default (e.g. "MyProperty" is converted to "myProperty"). This behavior can be switched off by changing the value of the property "`json2ts.convertPropertyNamesToLowerCamelCase`" to "`false`" in the User Settings of Visual Studio Code.
+
 ### Contributing
 Feel free to submit a pull request if you find any bugs (to see a list of active issues, visit the [Issues section](https://github.com/GregorBiswanger/VSCode-json2ts/issues)).
 Please make sure all commits are properly documented.

@@ -184,6 +184,17 @@ suite("json2ts Tests", () => {
         assert.equal(result, ts);
     });
 
+    test("Convert extensive JSON-Value to TypeScript Interfaces while keeping upper and lower cases of first character", () => {
+        let json = `{\n\t"Herausgeber": "Xema","Nummer": "1234-5678-9012-3456","Deckung": 2e+6,"Waehrung": "EURO","Inhaber": {\n\t"Name": "Mustermann","Vorname": "Max","maennlich": true,"Hobbys": [ "Reiten", "Golfen", "Lesen" ], "Alter": 42,"Kinder": [],"Partner": null\n\t}\n}`;
+        let ts = `export interface Inhaber {\n\tName: string;\n\tVorname: string;\n\tmaennlich: boolean;\n\tHobbys: string[];\n\tAlter: number;\n\tKinder: any[];\n\tPartner?: any;\n}\n\nexport interface RootObject {\n\tHerausgeber: string;\n\tNummer: string;\n\tDeckung: number;\n\tWaehrung: string;\n\tInhaber: Inhaber;\n}`;
+
+        let json2ts = new Json2Ts();
+        json2ts.convertPropertyNamesToLowerCamelCase = false;
+        let result = json2ts.convert(json);
+
+        assert.equal(result, ts);
+    });
+
     test("Convert Array JSON-Value to single RootObject", () => {
         let json = `[{\n\t"userId": 1,"id": 1,"title": "sunt aut facere", "body": "quia et suscipit"\n},\n{\n\t"userId": 1,"id": 2,"title": "qui est esse","body": "est rerum tempore"\n}]`;
         let ts = `export interface RootObject {\n\tuserId: number;\n\tid: number;\n\ttitle: string;\n\tbody: string;\n}`;

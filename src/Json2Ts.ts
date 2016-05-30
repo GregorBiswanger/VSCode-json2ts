@@ -1,6 +1,13 @@
 import * as _ from "underscore";
+import * as vscode from "vscode";
 
 export class Json2Ts {
+    public convertPropertyNamesToLowerCamelCase: boolean = true;
+
+    constructor() {
+        this.convertPropertyNamesToLowerCamelCase = vscode.workspace.getConfiguration("json2ts")["convertPropertyNamesToLowerCamelCase"];
+    }
+
     convert(content: string): string {
         let jsonContent = JSON.parse(content);
 
@@ -119,10 +126,15 @@ export class Json2Ts {
         let allKeys = _.allKeys(jsonContent);
         for (let index = 0, length = allKeys.length; index < length; index++) {
             let key = allKeys[index];
+            let convertedKey = key;
+            if(this.convertPropertyNamesToLowerCamelCase) {
+                //Only convert to lower key if setting is set
+                convertedKey = this.toLowerFirstLetter(key);
+            }
             if (_.contains(optionalKeys, key)) {
-                result = result.replace(new RegExp(key + ":", "g"), this.toLowerFirstLetter(key) + "?:");
+                result = result.replace(new RegExp(key + ":", "g"), convertedKey + "?:");
             } else {
-                result = result.replace(new RegExp(key + ":", "g"), this.toLowerFirstLetter(key) + ":");
+                result = result.replace(new RegExp(key + ":", "g"), convertedKey + ":");
             }
         }
 
